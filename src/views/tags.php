@@ -4,15 +4,14 @@
         <meta charset="utf-8">
         <title>ReSoC - Les message par mot-clé</title> 
         <meta name="author" content="Julien Falconnet">
-        <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
         <?php
         //ajout du header
-        include("sources/header.php");
+        include("../includes/header.php");
         
         //connexion à la base de donnée MySQL
-        include("sources/connexion.php");
+        include("../includes/connexion.php");
         ?>
         
         <div id="wrapper">
@@ -27,13 +26,13 @@
                 $laQuestionEnSql = "SELECT * FROM tags WHERE id= '$tagId' ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("sources/library.php");
+                include("../includes/library.php");
                 
                 $tag = $lesInformations->fetch_assoc();
                 //echo "<pre>" . print_r($tag, 1) . "</pre>";
                 ?>
 
-                <img src="avatar.png" alt="Portrait de l'utilisatrice"/>
+                <img src="../../assets/images/avatar.png" alt="Portrait de l'utilisatrice"/>
                 
                 <section>
                     <h3>Présentation</h3>
@@ -67,7 +66,7 @@
                     ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("sources/library.php");;
+                include("../includes/library.php");
                
                 //vérification requête ok
                 if ( ! $lesInformations)

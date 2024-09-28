@@ -5,16 +5,15 @@
         <meta charset="utf-8">
         <title>ReSoC - Mes abonnés </title> 
         <meta name="author" content="Julien Falconnet">
-        <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
 
         <?php
             //ajout du header
-            include("sources/header.php");
+            include("../includes/header.php");
 
             //connexion à la base de donnée MySQL
-            include("sources/connexion.php");
+            include("../includes/connexion.php");
             
             //vérification connexion ok
             if ($mysqli->connect_errno)
@@ -27,7 +26,7 @@
         <div id="wrapper">    
 
             <aside>
-                <img src = "avatar.png" alt = "Portrait de l'utilisatrice"/>
+                <img src = "../../assets/images/avatar.png" alt = "Portrait de l'utilisatrice"/>
                 
                 <section>
                     <h3>Présentation</h3>
@@ -53,13 +52,13 @@
                     ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("sources/library.php");
+                include("../includes/library.php");
                 
                 //affiche le résultat de la requête : les followers de l'utilisateur
                 while ($followers = $lesInformations->fetch_assoc())
                 {?>
                     <article>
-                        <img src="avatar.png" alt="blason"/>
+                        <img src="../../assets/images/avatar.png" alt="blason"/>
                         <h3><a href="wall.php?user_id=<?php echo $followers["id"] ?>"><?php echo $followers["alias"] ?></a></h3>
                         <p><?php echo $followers["id"] ?></p> 
                     </article>   

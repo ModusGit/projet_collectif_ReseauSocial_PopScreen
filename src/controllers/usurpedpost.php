@@ -5,15 +5,14 @@
         <meta charset="utf-8">
         <title>ReSoC - Post d'usurpateur</title> 
         <meta name="author" content="Julien Falconnet">
-        <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
         <?php
         //ajout du header
-        include("../sources/header.php");
+        include("../includes/header.php");
 
         //connexion à la base de donnée MySQL
-        include("../sources/connexion.php");
+        include("../includes/connexion.php");
         ?>
 
         <div id="wrapper" >

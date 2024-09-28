@@ -5,16 +5,15 @@
         <meta charset="utf-8">
         <title>ReSoC - Mur</title> 
         <meta name="author" content="Julien Falconnet">
-        <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
         
         <?php
             //ajout du header
-            include("sources/header.php");
+            include("../includes/header.php");
         
             //connexion à la base de donnée MySQL
-            include("sources/connexion.php");
+            include("../includes/connexion.php");
         ?>
 
         <div id="wrapper">
@@ -39,13 +38,13 @@
                 $laQuestionEnSql = "SELECT * FROM users WHERE id= '$user_wall_id' ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("sources/library.php");
+                include("../includes/library.php");
 
                 $user = $lesInformations->fetch_assoc();
                 //echo "<pre>" . print_r($user, 1) . "</pre>";
                 ?>
 
-                <img src="avatar.png" alt="Portrait du pop screener connecté"/>
+                <img src="../../assets/images/avatar.png" alt="Portrait du pop screener connecté"/>
                 
                 <section>
                     <h3>Présentation</h3>
@@ -117,7 +116,7 @@
                     ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("sources/library.php");
+                include("../includes/library.php");
                 
                 //vérification requête ok
                 if ( ! $lesInformations)

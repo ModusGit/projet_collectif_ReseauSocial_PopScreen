@@ -4,21 +4,20 @@
         <meta charset="utf-8">
         <title>ReSoC - Mes abonnements</title> 
         <meta name="author" content="Julien Falconnet">
-        <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
         <?php
         //ajout du header
-        include("sources/header.php");
+        include("../includes/header.php");
         
         //connexion à la base de donnée MySQL
-        include("sources/connexion.php");
+        include("../includes/connexion.php");
         ?>
 
         <div id="wrapper">
 
             <aside>
-                <img src="avatar.png" alt="Portrait de l'utilisatrice"/>
+                <img src="../../assets/images/avatar.png" alt="Portrait de l'utilisatrice"/>
                 
                 <section>
                     <h3>Présentation</h3>
@@ -43,7 +42,7 @@
                     GROUP BY users.id
                     ";
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("sources/library.php");
+                include("../includes/library.php");
                 
                 //affiche le résultat de la requête : la liste des personnes dont l'utilisatrice suit les messages
                 while ($subscript = $lesInformations->fetch_assoc())

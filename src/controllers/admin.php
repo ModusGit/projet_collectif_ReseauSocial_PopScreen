@@ -5,16 +5,15 @@
         <meta charset="utf-8">
         <title>ReSoC - Administration</title> 
         <meta name="author" content="Julien Falconnet">
-        <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
 
         <?php
             //ajout du header
-            include("sources/header.php");
+            include("../includes/header.php");
 
             //connexion à la base de donnée MySQL
-            include("sources/connexion.php");
+            include("../includes/connexion.php");
 
             //vérification connexion ok
             if ($mysqli->connect_errno)
@@ -34,7 +33,7 @@
                 $laQuestionEnSql = "SELECT * FROM `tags` LIMIT 50";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("sources/library.php");
+                include("../includes/library.php");
                 
                 //vérification requête ok
                 if (! $lesInformations)
@@ -52,7 +51,7 @@
                         <h3>#<?php echo $tag["label"] ?></h3>
                         <p><?php echo $tag["id"]?></p>
                         <nav>
-                            <a href="tags.php?tag_id=<?php echo $tag["id"]?>">Messages</a>
+                            <a href="../views/tags.php?tag_id=<?php echo $tag["id"]?>">Messages</a>
                         </nav>
                     </article>
                 <?php } ?>
@@ -66,7 +65,7 @@
                 $laQuestionEnSql = "SELECT * FROM `users` LIMIT 50";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("sources/library.php");
+                include("../includes/library.php");
                 
                 //vérification requête ok
                 if (! $lesInformations)
@@ -84,11 +83,11 @@
                         <h3><?php echo $lesUtilisatrices["alias"] ?></h3>
                         <p><?php echo $lesUtilisatrices["id"]?></p>
                         <nav>
-                            <a href="wall.php?user_id=<?php echo $lesUtilisatrices["id"]?>">Mur</a>
-                            <a href="feed.php?user_id=<?php echo $lesUtilisatrices["id"]?>">Flux</a>
-                            <a href="settings.php?user_id=<?php echo $lesUtilisatrices["id"]?>">Paramètres</a>
-                            <a href="followers.php?user_id=<?php echo $lesUtilisatrices["id"]?>">Suiveurs</a>
-                            <a href="subscriptions.php?user_id=<?php echo $lesUtilisatrices["id"]?>">Abonnements</a>
+                            <a href="../views/wall.php?user_id=<?php echo $lesUtilisatrices["id"]?>">Mur</a>
+                            <a href="../views/feed.php?user_id=<?php echo $lesUtilisatrices["id"]?>">Flux</a>
+                            <a href="../views/settings.php?user_id=<?php echo $lesUtilisatrices["id"]?>">Paramètres</a>
+                            <a href="../views/followers.php?user_id=<?php echo $lesUtilisatrices["id"]?>">Suiveurs</a>
+                            <a href="../views/subscriptions.php?user_id=<?php echo $lesUtilisatrices["id"]?>">Abonnements</a>
                         </nav>
                     </article>
                 <?php } ?>
