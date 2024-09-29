@@ -1,19 +1,11 @@
-
 <!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Connexion</title> 
-        <meta name="author" content="Julien Falconnet">
-    </head>
     <body>
-    
         <?php
-        //ajout du header
-        include("../includes/header.php");
-
-        //connexion à la base de donnée MySQL
-        include("../includes/connexion.php");
+            //ajout du header
+            include("../includes/header.php");
+        
+            //connexion à la base de donnée MySQL
+            include("../includes/connexion.php");
         ?>
 
         <div id="wrapper" >
@@ -30,9 +22,7 @@
                     <?php
                     //traitement du formulaire
                     $enCoursDeTraitement = isset($_POST['email']);
-                    if ($enCoursDeTraitement)
-                    {
-                        //echo "<pre>" . print_r($_POST, 1) . "</pre>";
+                    if ($enCoursDeTraitement) {
                         
                         $emailAVerifier = $_POST['email'];
                         $passwdAVerifier = $_POST['motpasse'];
@@ -54,11 +44,9 @@
                         //vérification de l'utilisateur
                         $res = $mysqli->query($lInstructionSql);
                         $user = $res->fetch_assoc();
-                        if ( ! $user OR $user["password"] != $passwdAVerifier)
-                        {
+                        if ( ! $user OR $user["password"] != $passwdAVerifier) {
                             echo "La connexion a échouée. ";
-                        } else
-                        {
+                        } else {
                             echo "Votre connexion est un succès : " . $user['alias'] . ".";
                             //se souvenir que l'utilisateur s'est connecté pour la suite
                             $_SESSION['connected_id']=$user['id'];

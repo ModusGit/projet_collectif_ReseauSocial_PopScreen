@@ -1,18 +1,11 @@
-
 <!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Post d'usurpateur</title> 
-        <meta name="author" content="Julien Falconnet">
-    </head>
     <body>
         <?php
-        //ajout du header
-        include("../includes/header.php");
-
-        //connexion à la base de donnée MySQL
-        include("../includes/connexion.php");
+            //ajout du header
+            include("../includes/header.php");
+        
+            //connexion à la base de donnée MySQL
+            include("../includes/connexion.php");
         ?>
 
         <div id="wrapper" >
@@ -32,24 +25,20 @@
                     $laQuestionEnSql = "SELECT * FROM users";
                     
                     //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                    include("../sources/library.php");
+                    include("../sources/execute_query.php");
                     
                     //affiche le résultat de la requête
-                    while ($user = $lesInformations->fetch_assoc())
-                    {
+                    while ($user = $lesInformations->fetch_assoc()) {
                         $listAuteurs[$user['id']] = $user['alias'];
                     }
 
                     //traiter le formulaire
                     $enCoursDeTraitement = isset($_POST['auteur']);
                     
-                    if ($enCoursDeTraitement)
-                    {
+                    if ($enCoursDeTraitement) {
                         //récupérer ce qu'il y a dans le formulaire
-                        //echo "<pre>" . print_r($_POST, 1) . "</pre>";
                         $authorId = $_POST['auteur'];
                         $postContent = $_POST['message'];
-
 
                         //sécurité pour éviter les injection sql : https://www.w3schools.com/sql/sql_injection.asp
                         $authorId = intval($mysqli->real_escape_string($authorId));
@@ -65,11 +54,9 @@
 
                         //exécution de la requête
                         $ok = $mysqli->query($lInstructionSql);
-                        if (! $ok)
-                        {
+                        if (! $ok) {
                             echo "Impossible d'ajouter le message: " . $mysqli->error;
-                        } else
-                        {
+                        } else {
                             echo "Message posté en tant que :" . $listAuteurs[$authorId];
                         }
                     }

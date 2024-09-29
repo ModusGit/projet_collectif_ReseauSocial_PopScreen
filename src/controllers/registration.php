@@ -1,17 +1,11 @@
 <!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Inscription</title> 
-        <meta name="author" content="Julien Falconnet">
-    </head>
     <body>
         <?php
-        //ajout du header
-        include("../includes/header.php");
-
-        //connexion à la base de donnée MySQL
-        include("../includes/connexion.php");
+            //ajout du header
+            include("../includes/header.php");
+        
+            //connexion à la base de donnée MySQL
+            include("../includes/connexion.php");
         ?>
 
         <div id="wrapper" >
@@ -28,10 +22,8 @@
                     <?php
                     //traiter le formulaire
                     $enCoursDeTraitement = isset($_POST['email']);
-                    if ($enCoursDeTraitement)
-                    {
+                    if ($enCoursDeTraitement) {
                         //récupérer ce qu'il y a dans le formulaire
-                        //echo "<pre>" . print_r($_POST, 1) . "</pre>";
                         $new_email = $_POST['email'];
                         $new_alias = $_POST['pseudo'];
                         $new_passwd = $_POST['motpasse'];
@@ -54,11 +46,9 @@
                         
                         //exécution de la requête
                         $ok = $mysqli->query($lInstructionSql);
-                        if (! $ok)
-                        {
+                        if (! $ok) {
                             echo "L'inscription a échouée : " . $mysqli->error;
-                        } else
-                        {
+                        } else {
                             echo "Votre inscription est un succès : " . $new_alias;
                             echo " <a href='login.php'>Connectez-vous.</a>";
                         }

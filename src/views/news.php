@@ -1,27 +1,11 @@
 <!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Actualités</title> 
-        <meta name="author" content="Julien Falconnet">
-    </head>
     <body>
         <?php
-        //ajout du header
-        include("../includes/header.php");
+            //ajout du header
+            include("../includes/header.php");
         
-        //connexion à la base de donnée MySQL
-        include("../includes/connexion.php");
-        
-        //vérification connexion ok
-        if ($mysqli->connect_errno)
-        {
-            echo "<article>";
-            echo("Échec de la connexion : " . $mysqli->connect_error);
-            echo("<p>Indice: Vérifiez les parametres de <code>new mysqli(...</code></p>");
-            echo "</article>";
-            exit();
-        }
+            //connexion à la base de donnée MySQL
+            include("../includes/connexion.php");
         ?>
 
         <div id="wrapper">
@@ -31,8 +15,7 @@
                 
                 <section>
                     <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez les derniers messages de
-                        tous les pop screeners
+                    <p>Sur cette page vous trouverez les derniers messages de tous les pop screeners.
                     </p>
                 </section>
             </aside>
@@ -60,35 +43,28 @@
                     ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("../includes/library.php");
-                
-                //vérification requête ok
-                if ( ! $lesInformations)
-                {
-                    echo "<article>";
-                    echo("Échec de la requete : " . $mysqli->error);
-                    echo("<p>Indice: Vérifiez la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql</code></p>");
-                    exit();
-                }
+                include("../includes/execute_query.php");
 
                 //affiche le résultat de la requête : les derniers posts de tous les utilisateurs du site
                 //à chaque tour du while, la variable post ci dessous reçois les informations du post suivant.
-                while ($post = $lesInformations->fetch_assoc())
-                {
-                //echo "<pre>" . print_r($post, 1) . "</pre>";
+                while ($post = $lesInformations->fetch_assoc()) {
                 ?>
                     <article>
                         <h3>
                             <?php
-                            //affiche la date de création du post
-                            $date =new DateTime($post['created']); 
-                            //strftime('%d-%m-%Y',strtotime($date));
+                            include_once('../includes/format_date.php');
+
+                            // Créer un objet DateTime à partir de la date du post
+                            $date = new DateTime($post['created']);
                             ?>
-                            <time><?php echo $date->format('l jS \o\f F Y h:i:s A'), "\n";?></time>
+
+                            <time><?php echo formaterDateEnFrancais($date), "\n";?></time>
                         </h3>
                         
                         <address>
-                            <a href="wall.php?user_id=<?php echo $post["author_id"] ?>"><?php echo $post['author_name'] ?></a>
+                            De 
+                            <a href="wall.php?user_id=<?php echo $post["author_id"] ?>">
+                                <?php echo $post['author_name'] ?></a>
                         </address>
                         
                         <div>
@@ -97,7 +73,10 @@
                         
                         <footer>
                             <small>♥ <?php echo $post['like_number'] ?></small>
-                            <a href="tags.php?tag_id=<?php echo $post['tag_id'] ?>">#<?php echo $post['taglist'] ?></a>
+                            <a href="tags.php?tag_id=<?php echo $post['tag_id'] ?>">
+                                #
+                                <?php echo $post['taglist'] ?>
+                            </a>
                         </footer>
                     </article>
                 <?php } ?>

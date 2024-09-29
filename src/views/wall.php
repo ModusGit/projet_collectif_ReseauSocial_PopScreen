@@ -1,13 +1,6 @@
 
 <!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Mur</title> 
-        <meta name="author" content="Julien Falconnet">
-    </head>
     <body>
-        
         <?php
             //ajout du header
             include("../includes/header.php");
@@ -17,19 +10,14 @@
         ?>
 
         <div id="wrapper">
-            <?php
-            //Le mur concerne un utilisateur en particulier
-            //$userId =intval($_GET['user_id']);
             
-            if (isset($_GET['user_id'])){
+            <?php
+            
+            if (isset($_GET['user_id'])) {
                 $user_wall_id =intval($_GET['user_id']);
-            }
-            else{
-
+            } else {
                 $user_wall_id =$_SESSION['connected_id'];
             }
-            //echo "connectedID = " . $user_connectedID; 
-            //echo "userID = " . $userId;
             ?>
 
             <aside>
@@ -38,33 +26,27 @@
                 $laQuestionEnSql = "SELECT * FROM users WHERE id= '$user_wall_id' ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("../includes/library.php");
+                include("../includes/execute_query.php");
 
                 $user = $lesInformations->fetch_assoc();
-                //echo "<pre>" . print_r($user, 1) . "</pre>";
                 ?>
 
                 <img src="../../assets/images/avatar.png" alt="Portrait du pop screener connecté"/>
                 
                 <section>
                     <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez tous les messages de <?php echo $user["alias"] ?>
-                        <!-- (n° <?php //echo $user_wall_id ?>) -->
+                    <p>Sur cette page vous trouverez tous les messages de <?php echo $user["alias"] ?>.
                     </p>
                 </section>
                 
                 <article>
                     <?php
-                    //echo "<pre>" . print_r($_POST, 1) . "</pre>";
 
                     //s'abonner à un pop screener
                     $enCoursDeTraitement = isset($_POST['jeVeuxTeSuivre']);
-                    if ($enCoursDeTraitement)
-                    {
+                    if ($enCoursDeTraitement) {
                         $followed_connectedID = $_POST['jeVeuxTeSuivre'];
                         $following_connectedID = $_POST['tuMeSuis'];
-
-                        //$user_connectedID = intval($mysqli->real_escape_string($user_connectedID));
                         
                         //requête my SQL
                          $lInstructionSql = "INSERT INTO followers "
@@ -75,17 +57,15 @@
 
                         //exécution de la requête
                         $ok = $mysqli->query($lInstructionSql);
-                        if (! $ok)
-                        {
+                        if (! $ok) {
                             echo "Impossible de suivre ce pop screener." . $mysqli->error;
-                        } else
-                        {
+                        } else {
                             echo "Cool un nouveau pop screen friend!";
                         }
                     }
 
-                    if (isset($_GET['user_id']))
-                    {?>
+                    if (isset($_GET['user_id'])) { 
+                    ?>
                         <form action="wall.php" method="post">
                             <input type='hidden' name='tuMeSuis' value="<?php echo $_SESSION['connected_id']?>"> 
                             <input type='hidden' name='jeVeuxTeSuivre' value="<?php echo $_GET['user_id']?>">
@@ -116,27 +96,22 @@
                     ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("../includes/library.php");
-                
-                //vérification requête ok
-                if ( ! $lesInformations)
-                {
-                    echo("Échec de la requete : " . $mysqli->error);
-                }
+                include("../includes/execute_query.php");
                 
                 //affiche le résultat de la requête : les posts de l'utilisatrice
                 while ($post = $lesInformations->fetch_assoc())
                 {
-                //echo "<pre>" . print_r($post, 1) . "</pre>";
                 ?>                
                     <article>
                         <h3>
                             <?php
-                            //affiche la date de création du post
-                            $date =new DateTime($post['created']); 
-                            //strftime('%d-%m-%Y',strtotime($date));
+                            include_once('../includes/format_date.php');
+
+                            // Créer un objet DateTime à partir de la date du post
+                            $date = new DateTime($post['created']);
+
                             ?>
-                            <time><?php echo $date->format('l jS \o\f F Y h:i:s A'), "\n";?></time>
+                            <time><?php echo formaterDateEnFrancais($date), "\n";?></time>
                         </h3>
                         
                         <address>
@@ -161,10 +136,8 @@
                     <article>
                         <h2>Poster un message</h2>
                         <?php
-                        //echo "<pre>" . print_r($_POST, 1) . "</pre>";
                         $enCoursDeTraitement = isset($_POST['author_id']);
-                        if ($enCoursDeTraitement)
-                        {
+                        if ($enCoursDeTraitement) {
                             $user_connectedID = $_POST['author_id'];
                             $postContent = $_POST['message'];
                             
@@ -182,11 +155,9 @@
 
                             //exécution de la requête mySQL
                             $ok = $mysqli->query($lInstructionSql);
-                            if (! $ok)
-                            {
+                            if (! $ok) {
                                 echo "Impossible d'ajouter le message: " . $mysqli->error;
-                            } else
-                            {
+                            } else {
                                 echo "Message posté en tant que :" . $user_wall_id;
                             }
                         }

@@ -1,17 +1,11 @@
 <!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Paramètres</title> 
-        <meta name="author" content="Julien Falconnet">
-    </head>
     <body>
         <?php
-        //ajout du header
-        include("../includes/header.php");
-
-        //connexion à la base de donnée MySQL
-        include("../includes/connexion.php");
+            //ajout du header
+            include("../includes/header.php");
+        
+            //connexion à la base de donnée MySQL
+            include("../includes/connexion.php");
         ?>
 
         <div id="wrapper" class='profile'>
@@ -21,9 +15,7 @@
                 
                 <section>
                     <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez vos informations de compte
-                        <!-- n° <?php //echo intval($_GET['user_id']) ?></p> -->
-
+                    <p>Sur cette page vous trouverez vos informations de compte.
                 </section>
             </aside>
             
@@ -46,16 +38,9 @@
                     GROUP BY users.id
                     ";
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("../includes/library.php");
-                
-                //vérification requête ok
-                if ( ! $lesInformations)
-                {
-                    echo("Échec de la requete : " . $mysqli->error);
-                }
+                include("../includes/execute_query.php");                
                 
                 $user = $lesInformations->fetch_assoc();
-                //echo "<pre>" . print_r($user, 1) . "</pre>";
                ?>                
 
                 <article class='parameters'>

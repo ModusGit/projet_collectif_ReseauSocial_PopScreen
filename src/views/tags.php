@@ -1,20 +1,15 @@
 <!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Les message par mot-clé</title> 
-        <meta name="author" content="Julien Falconnet">
-    </head>
     <body>
         <?php
-        //ajout du header
-        include("../includes/header.php");
+            //ajout du header
+            include("../includes/header.php");
         
-        //connexion à la base de donnée MySQL
-        include("../includes/connexion.php");
+            //connexion à la base de donnée MySQL
+            include("../includes/connexion.php");
         ?>
         
         <div id="wrapper">
+            
             <?php
              //Le mur concerne un mot-clé en particulier
             $tagId = intval($_GET['tag_id']);
@@ -26,21 +21,18 @@
                 $laQuestionEnSql = "SELECT * FROM tags WHERE id= '$tagId' ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("../includes/library.php");
+                include("../includes/execute_query.php");
                 
                 $tag = $lesInformations->fetch_assoc();
-                //echo "<pre>" . print_r($tag, 1) . "</pre>";
                 ?>
 
                 <img src="../../assets/images/avatar.png" alt="Portrait de l'utilisatrice"/>
                 
                 <section>
                     <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez les derniers messages comportant
-                        le mot-clé <?php echo $tag["label"] ?>
-                        (n° <?php echo $tagId ?>)
+                    <p>Sur cette page vous trouverez les derniers messages comportant le mot-clé :
+                        <?php echo $tag["label"] ?>.
                     </p>
-
                 </section>
             </aside>
             
@@ -66,28 +58,22 @@
                     ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("../includes/library.php");
-               
-                //vérification requête ok
-                if ( ! $lesInformations)
-                {
-                    echo("Échec de la requete : " . $mysqli->error);
-                }
+                include("../includes/execute_query.php");
 
                //affiche le résultat de la requête : les tags
-                while ($post = $lesInformations->fetch_assoc())
-                {
-                    //echo "<pre>" . print_r($post, 1) . "</pre>";
+                while ($post = $lesInformations->fetch_assoc()) {
                 ?>                
                 
                 <article>
                         <h3>
                             <?php
-                            //affiche la date de création du post
-                            $date =new DateTime($post['created']); 
-                            //strftime('%d-%m-%Y',strtotime($date));
+                            include_once('../includes/format_date.php');
+
+                            // Créer un objet DateTime à partir de la date du post
+                            $date = new DateTime($post['created']);
+
                             ?>
-                            <time><?php echo $date->format('l jS \o\f F Y h:i:s A'), "\n";?></time>
+                            <time><?php echo formaterDateEnFrancais($date), "\n";?></time>
                         </h3>
                         
                         <address>

@@ -1,26 +1,12 @@
 
 <!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Flux</title>         
-        <meta name="author" content="Julien Falconnet">
-    </head>
     <body>
-        
         <?php
             //ajout du header
             include("../includes/header.php");
         
             //connexion à la base de donnée MySQL
             include("../includes/connexion.php");
-
-            //vérification connexion ok
-            if ($mysqli->connect_errno)
-            {
-            echo("Échec de la connexion : " . $mysqli->connect_error);
-            exit();
-            }
         ?>
         
         <div id="wrapper">
@@ -30,17 +16,14 @@
                 //Le mur concerne un utilisateur en particulier
                 $userId = intval($_GET['user_id']);
                 $user_connectedID = $_SESSION['connected_id'];
-                //echo "userID = " . $userId;
-                //echo "connectedID = " . $user_connectedID; 
                 
                 //sélectionner toutes les colonnes dans la table users, de l'utilisateur connecté
                 $laQuestionEnSql = "SELECT * FROM `users` WHERE id= '$userId' ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("../includes/library.php");
+                include("../includes/execute_query.php");
                 
                 $user = $lesInformations->fetch_assoc();
-                //echo "<pre>" . print_r($user, 1) . "</pre>";
                 ?>
 
                 <img src="../../assets/images/avatar.png" alt="Portrait de l'utilisatrice"/>
@@ -48,8 +31,7 @@
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez tous les message des pop screeners que vous suivez,
-                        <a href="wall.php?user_id=<?php echo $user["id"] ?>"><?php echo $user["alias"] ?></a>
-                        <!-- n° <?php //echo $userId ?> -->
+                        <a href="wall.php?user_id=<?php echo $user["id"] ?>"><?php echo $user["alias"] ?>.</a>
                     </p>
                 </section>
             </aside>
@@ -76,27 +58,22 @@
                     ";
                 
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("../includes/library.php");
+                include("../includes/execute_query.php");
                 
-                //vérification requête ok
-                if ( ! $lesInformations)
-                {
-                    echo("Échec de la requete : " . $mysqli->error);
-                }
-
                 //affiche le résultat de la requête : les posts du flux
-                while ($post = $lesInformations->fetch_assoc())
-                {
-                //echo "<pre>" . print_r($post, 1) . "</pre>";
+                while ($post = $lesInformations->fetch_assoc()) {
                 ?>                
                     <article>
                         <h3>
                             <?php
-                            //affiche la date de création du post
-                            $date =new DateTime($post['created']); 
-                            //strftime('%d-%m-%Y',strtotime($date));
+                            include_once('../includes/format_date.php');
+
+                            // Créer un objet DateTime à partir de la date du post
+                            $date = new DateTime($post['created']);
+                            
                             ?>
-                            <time><?php echo $date->format('l jS \o\f F Y h:i:s A'), "\n";?></time>
+
+                            <time><?php echo formaterDateEnFrancais($date), "\n";?></time>
                         </h3>
                         
                         <address> 

@@ -1,29 +1,20 @@
 <!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Mes abonnements</title> 
-        <meta name="author" content="Julien Falconnet">
-    </head>
     <body>
         <?php
-        //ajout du header
-        include("../includes/header.php");
+            //ajout du header
+            include("../includes/header.php");
         
-        //connexion à la base de donnée MySQL
-        include("../includes/connexion.php");
+            //connexion à la base de donnée MySQL
+            include("../includes/connexion.php");
         ?>
 
         <div id="wrapper">
-
             <aside>
                 <img src="../../assets/images/avatar.png" alt="Portrait de l'utilisatrice"/>
                 
                 <section>
                     <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez la liste des pop screeners que
-                        vous suivez
-                        <!-- n° <?php //echo intval($_GET['user_id']) ?> -->
+                    <p>Sur cette page vous trouverez la liste des pop screeners que vous suivez.
                     </p>
                 </section>
             </aside>
@@ -41,16 +32,20 @@
                     WHERE followers.following_user_id='$userId'
                     GROUP BY users.id
                     ";
+                
                 //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                include("../includes/library.php");
+                include("../includes/execute_query.php");
                 
                 //affiche le résultat de la requête : la liste des personnes dont l'utilisatrice suit les messages
-                while ($subscript = $lesInformations->fetch_assoc())
-                {?>
+                while ($subscript = $lesInformations->fetch_assoc()) {
+                ?>
                     <article>
-                        <img src="avatar.png" alt="blason"/>
-                        <h3><a href="wall.php?user_id=<?php echo $subscript["id"]?>"><?php echo $subscript["alias"] ?></a></h3>
-                        <p><?php echo $subscript["id"] ?></p> 
+                        <img src="../../assets/images/avatar.png" alt="blason"/>
+                        <h3>
+                            <a href="wall.php?user_id=<?php echo $subscript["id"]?>">
+                            <?php echo $subscript["alias"] ?>
+                            </a>
+                        </h3> 
                     </article>                
                 <?php } ?>
             </main>
