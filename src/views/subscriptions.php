@@ -13,8 +13,7 @@
                 <img src="../../assets/images/avatar.png" alt="Portrait de l'utilisatrice"/>
                 
                 <section>
-                    <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez la liste des pop screeners que vous suivez.
+                    <p>Les pop screeners que vous suivez.
                     </p>
                 </section>
             </aside>

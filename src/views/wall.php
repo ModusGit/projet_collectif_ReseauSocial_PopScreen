@@ -34,8 +34,7 @@
                 <img src="../../assets/images/avatar.png" alt="Portrait du pop screener connecté"/>
                 
                 <section>
-                    <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez tous les messages de <?php echo $user["alias"] ?>.
+                    <p>Tous vos messages, <?php echo $user["alias"] ?>.
                     </p>
                 </section>
                 

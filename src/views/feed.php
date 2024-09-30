@@ -29,8 +29,7 @@
                 <img src="../../assets/images/avatar.png" alt="Portrait de l'utilisatrice"/>
                 
                 <section>
-                    <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez tous les message des pop screeners que vous suivez,
+                    <p>Les message des pop screeners que vous suivez,
                         <a href="wall.php?user_id=<?php echo $user["id"] ?>"><?php echo $user["alias"] ?>.</a>
                     </p>
                 </section>

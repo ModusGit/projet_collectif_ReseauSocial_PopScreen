@@ -33,7 +33,7 @@ session_start();
             <a href="#"><img src="../../assets/images/profil.png" alt="icone de profil"></a>
             <ul>
                 <li><a href="/projet_collectif_ReseauSocial_PopScreen/src/views/settings.php?user_id=
-                <?php echo $_SESSION['connected_id']; ?>">Paramètres</a>
+                <?php echo $_SESSION['connected_id']; ?>">Mes Paramètres</a>
                 </li>
                 <li><a href="/projet_collectif_ReseauSocial_PopScreen/src/views/followers.php?user_id=
                 <?php echo $_SESSION['connected_id']; ?>">Mes suiveurs</a>
