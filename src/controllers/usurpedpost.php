@@ -12,7 +12,7 @@
 
             <aside>
                 <p>Sur cette page on peut poster un message en se faisant 
-                    passer pour quelqu'un d'autre</p>
+                    passer pour quelqu'un d'autre.</p>
             </aside>
 
             <main>
@@ -24,7 +24,7 @@
                     $laQuestionEnSql = "SELECT * FROM users";
                     
                     //exécution de la requête mySQL contenue dans la variable $laQuestionEnSql
-                    include("../sources/execute_query.php");
+                    include("../includes/execute_query.php");
                     
                     //affiche le résultat de la requête
                     while ($user = $lesInformations->fetch_assoc()) {
